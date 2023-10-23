@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
       - name: mon-app
-        image: rletient/hello:0.0.1
+        image: rletient/hello:0.0.3
