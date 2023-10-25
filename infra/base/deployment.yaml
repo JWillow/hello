@@ -25,12 +25,10 @@ spec:
         - name: config-volume
           mountPath: /etc/config
         env:
-        - name: JAVA_OPS
-          value: "-Dspring.config.location=file:/etc/config/application.yaml"
+        - name: JAVA_OPTS
+          value: "-Dspring.config.location=/etc/config/application.yaml"
         - name: MYENV_SECRET
           valueFrom:
             secretKeyRef:
               name: hello-secrets
               key: myenv.secret
-
-
