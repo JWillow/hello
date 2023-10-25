@@ -1,0 +1,59 @@
+apiVersion: v1
+data:
+  application.yaml: |+
+    test:
+      property: pour du test
+
+kind: ConfigMap
+metadata:
+  name: my-configmap-b4md9522gb
+  namespace: app-hello-2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mon-app
+  namespace: app-hello-2
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: mon-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mon-app
+  namespace: app-hello-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mon-app
+  template:
+    metadata:
+      labels:
+        app: mon-app
+    spec:
+      containers:
+      - env:
+        - name: JAVA_OPTS
+          value: -Dspring.config.location=/etc/config/application.yaml
+        - name: MYENV_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: myenv.secret
+              name: hello-secrets
+        image: rletient/hello:0.0.4
+        name: mon-app
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /etc/config
+          name: config-volume
+      volumes:
+      - configMap:
+          name: my-configmap-b4md9522gb
+        name: config-volume
