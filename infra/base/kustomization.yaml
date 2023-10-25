@@ -8,4 +8,4 @@ configMapGenerator:
   files:
   - config/application.yaml
 
-namespace: apps
+namespace: app-hello
