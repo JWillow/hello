@@ -1,3 +1,11 @@
 resources:
 - deployment.yaml
 - service.yaml
+
+
+configMapGenerator:
+- name: my-configmap
+  files:
+  - config/application.yaml
+
+namespace: apps
