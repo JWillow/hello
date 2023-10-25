@@ -12,7 +12,7 @@ spec:
       labels:
         app: mon-app
     spec:
-      volumeMounts:
+      volumes:
       - name: config-volume
         configMap:
           name: my-configmap
