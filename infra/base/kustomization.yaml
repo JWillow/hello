@@ -2,6 +2,7 @@ resources:
 - deployment.yaml
 - service.yaml
 - ingress-route.yaml
+- traefik-middleware.yaml
 
 configMapGenerator:
 - name: my-configmap
