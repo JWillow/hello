@@ -1,0 +1,17 @@
+# All resources definition must be declared
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ir-hello
+spec:
+  entryPoints:
+  - web
+  routes:
+  - kind: Rule
+    match: PathPrefix(`/hello`)
+    services:
+    - kind: Service
+      name: mon-app
+      namespace: app-hello
+      passHostHeader: true
+      port: 8080
