@@ -9,6 +9,9 @@ spec:
   routes:
   - kind: Rule
     match: PathPrefix(`/hello`)
+    middlewares:
+    - name: traefik-hello-mw
+      namespace: app-hello
     services:
     - kind: Service
       name: mon-app

@@ -1,0 +1,9 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-hello-mw
+spec:
+  stripPrefix:
+    prefixes:
+    - "/hello"
+    forceSlash: false
