@@ -1,3 +1,10 @@
 test:
   property: pour de vrai
+spring:
+  sleuth:
+    otel:
+      config:
+        trace-id-ratio-based: 1.0
+      exporter:
+        otlp.endpoint: http://jaeger-agent.default.svc:4318
 
