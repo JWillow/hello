@@ -2,18 +2,18 @@ apiVersion: v1
 data:
   application.yaml: |+
     test:
-      property: pour du test
+      property: pour de vrai
 
 kind: ConfigMap
 metadata:
-  name: my-configmap-b4md9522gb
-  namespace: app-hello-2
+  name: my-configmap-2m47t7ctcf
+  namespace: app-hello
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mon-app
-  namespace: app-hello-2
+  namespace: app-hello
 spec:
   ports:
   - port: 8080
@@ -26,7 +26,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mon-app
-  namespace: app-hello-2
+  namespace: app-hello
 spec:
   replicas: 1
   selector:
@@ -55,5 +55,22 @@ spec:
           name: config-volume
       volumes:
       - configMap:
-          name: my-configmap-b4md9522gb
+          name: my-configmap-2m47t7ctcf
         name: config-volume
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ir-hello
+  namespace: app-hello
+spec:
+  entryPoints:
+  - web
+  routes:
+  - kind: Rule
+    match: PathPrefix(`/hello`)
+    services:
+    - kind: Service
+      name: mon-app
+      passHostHeader: true
+      port: 8080
